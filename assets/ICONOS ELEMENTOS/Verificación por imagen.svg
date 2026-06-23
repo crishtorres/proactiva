@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 53.62 49.75">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-3, .cls-4 {
+        stroke: #153f6f;
+      }
+
+      .cls-1, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        stroke: #55dfff;
+      }
+
+      .cls-2, .cls-3 {
+        fill: none;
+      }
+
+      .cls-4 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <circle class="cls-2" cx="28.37" cy="26.31" r="17.74"/>
+  <circle class="cls-3" cx="28.34" cy="26.31" r="20.9"/>
+  <g>
+    <path class="cls-3" d="M43.87,25.4c.35.34.35.89,0,1.23-1.9,1.83-8,7.13-15.24,7.13s-13.34-5.29-15.24-7.13c-.35-.34-.35-.89,0-1.23,1.9-1.83,8-7.13,15.24-7.13s13.34,5.29,15.24,7.13Z"/>
+    <circle class="cls-3" cx="28.59" cy="25.98" r="5.33"/>
+    <circle class="cls-3" cx="28.59" cy="25.98" r="2.24"/>
+  </g>
+  <circle class="cls-1" cx="32.87" cy="32.52" r="6.36"/>
+  <polyline class="cls-4" points="30.38 32.37 33.25 34.75 35.24 29.16"/>
+</svg>
