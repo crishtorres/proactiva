@@ -37,7 +37,7 @@ import sirenIcon from '../assets/ICONOS ELEMENTOS/Sirena interna.svg'
 import videoIcon from '../assets/ICONOS ELEMENTOS/Sistemas de videovigilancia.svg'
 import verificationIcon from '../assets/ICONOS ELEMENTOS/Verificación por imagen.svg'
 
-const pdfAsset = (name) => `/pdf-assets/${name}`
+const pdfAsset = (name) => `${import.meta.env.BASE_URL}pdf-assets/${name}`
 
 const ringIcons = [ring1, ring2, ring3, ring4, ring5]
 const ringActiveIcons = [ringActive1, ringActive2, ringActive3, ringActive4, ringActive5]
