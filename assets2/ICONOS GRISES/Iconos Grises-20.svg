@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 223.01 33.7">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #878787;
+        font-family: ClashDisplay-Medium, 'Clash Display';
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: .03em;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #878787;
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <text class="cls-1" transform="translate(16.7 22.23)"><tspan x="0" y="0">Supervisión visual</tspan></text>
+  <rect class="cls-2" x="6.33" y="7.67" width="211.61" height="21.63" rx="10.81" ry="10.81"/>
+</svg>

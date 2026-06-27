@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 223.01 33.7">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #192845;
+      }
+
+      .cls-2 {
+        fill: #045599;
+        font-family: ClashDisplay-Medium, 'Clash Display';
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: .03em;
+      }
+    </style>
+  </defs>
+  <text class="cls-2" transform="translate(17.42 21.74)"><tspan x="0" y="0">Cobertura perimetral</tspan></text>
+  <path class="cls-1" d="M207.28,28.16H17.3c-6.24,0-11.31-5.08-11.31-11.31s5.08-11.31,11.31-11.31h189.98c6.24,0,11.31,5.08,11.31,11.31s-5.08,11.31-11.31,11.31ZM17.3,6.54c-5.69,0-10.31,4.63-10.31,10.31s4.63,10.31,10.31,10.31h189.98c5.69,0,10.31-4.63,10.31-10.31s-4.63-10.31-10.31-10.31H17.3Z"/>
+</svg>

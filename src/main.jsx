@@ -1,302 +1,204 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles.css'
 
-import logoWhite from '../assets/BANNER 1/Proactiva Blanco Logo.svg'
-import heroBg from '../assets/BANNER 1/Fondo Banner.jpg'
-import heroMobileBg from '../assets/BANNER 1/Fondo Banner celu.jpg'
-import houseDesktop from '../assets/IMAGEN 1/casa.png'
-import houseMobile from '../assets/IMAGEN 1/Casa celu.png'
-import arrowImage from '../assets/IMAGEN 1/flecha.png'
-import planEmpty from '../assets/Plano casa/PLANO SIN NADA.png'
-import planInterior from '../assets/Plano casa/PLANO ANILLO 1-2.png'
-import planTotal from '../assets/Plano casa/Plano -3-4-5.png'
+const assetModules = import.meta.glob('../assets2/**/*.{svg,jpg,png}', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+})
 
-import ring1 from '../assets/ICONOS ANILLOS/Anillo 1.svg'
-import ring2 from '../assets/ICONOS ANILLOS/Anillo 2.svg'
-import ring3 from '../assets/ICONOS ANILLOS/Anillo 3.svg'
-import ring4 from '../assets/ICONOS ANILLOS/Anillo 4.svg'
-import ring5 from '../assets/ICONOS ANILLOS/Anillo 5.svg'
-import ringActive1 from '../assets/ICONOS ANILLOS/Anillo Azul 1.svg'
-import ringActive2 from '../assets/ICONOS ANILLOS/Anillo azul 2.svg'
-import ringActive3 from '../assets/ICONOS ANILLOS/Anillo azul 3.svg'
-import ringActive4 from '../assets/ICONOS ANILLOS/Anillo Azul 4.svg'
-import ringActive5 from '../assets/ICONOS ANILLOS/Anillo Azul 5.svg'
+const asset = (path) => assetModules[`../assets2/${path}`]
 
-import cameraIcon from '../assets/ICONOS ELEMENTOS/Cámara.svg'
-import remoteIcon from '../assets/ICONOS ELEMENTOS/Control Remoto.svg'
-import appIcon from '../assets/ICONOS ELEMENTOS/gestion desde la app.svg'
-import recordingIcon from '../assets/ICONOS ELEMENTOS/GRABACIÓN.svg'
-import monitoringIcon from '../assets/ICONOS ELEMENTOS/Monitoreo profesional.svg'
-import nvrIcon from '../assets/ICONOS ELEMENTOS/NVR.svg'
-import motionIcon from '../assets/ICONOS ELEMENTOS/Sensor de movimiento.svg'
-import exteriorIcon from '../assets/ICONOS ELEMENTOS/Sensor exterior.svg'
-import photoIcon from '../assets/ICONOS ELEMENTOS/Sensor fotodetector.svg'
-import magneticIcon from '../assets/ICONOS ELEMENTOS/Sensor magenetico.svg'
-import sirenIcon from '../assets/ICONOS ELEMENTOS/Sirena interna.svg'
-import videoIcon from '../assets/ICONOS ELEMENTOS/Sistemas de videovigilancia.svg'
-import verificationIcon from '../assets/ICONOS ELEMENTOS/Verificación por imagen.svg'
+const logo = asset('Logo-03.svg')
+const houseDesktop = asset('IMG CASA/Casa sin Anillos.jpg')
+const houseActiveDesktop = asset('IMG CASA/Casa con Anillo 1 y 2.jpg')
+const houseMobile = asset('IMG CASA/CELU Casa sin Anillo.jpg')
+const houseActiveMobile = asset('IMG CASA/CELU Casa con anillo 1 y 2.jpg')
 
-const pdfAsset = (name) => `${import.meta.env.BASE_URL}pdf-assets/${name}`
+const emptyCircle = asset('circulo.svg')
 
-const ringIcons = [ring1, ring2, ring3, ring4, ring5]
-const ringActiveIcons = [ringActive1, ringActive2, ringActive3, ringActive4, ringActive5]
+const icon = (number) => asset(`ICONOS GRISES/Iconos Grises-${String(number).padStart(2, '0')}.svg`)
+const colorIcon = (ring, suffix = '') => asset(`ICONOS ANILLOS/Anillo ${ring}/Iconos anillo ${ring}${suffix}.svg`)
 
-const rings = [
+const protections = [
+  { label: 'Sensor magnético', grey: icon(4), color: colorIcon(1, '-04'), ring: 1 },
+  { label: 'Sirena interna', grey: icon(9), color: colorIcon(1, '-09'), ring: 1 },
+  { label: 'Sensor de movimiento', grey: icon(10), color: colorIcon(1, '-10'), ring: 1 },
+  { label: 'Control remoto', grey: icon(11), color: colorIcon(1), ring: 1 },
+  { label: 'Monitoreo profesional', grey: icon(5), color: colorIcon(1, '-05'), ring: 1 },
+  { label: 'Sensor con fotodetector', grey: icon(6), color: colorIcon(2), ring: 2 },
+  { label: 'Verificación por imagen', grey: icon(12), color: colorIcon(2, '-12'), ring: 2 },
+  { label: 'Gestión desde la app', grey: icon(13), color: colorIcon(2, '-13'), ring: 2 },
+  { label: 'Sensores exteriores tipo cortina', grey: icon(14), color: colorIcon(3), ring: 3 },
+  { label: 'Cámaras exteriores', grey: icon(7), color: colorIcon(4), ring: 4 },
+  { label: 'NVR Grabador', grey: icon(15), color: colorIcon(5, '-15'), ring: 5 },
+  { label: 'Grabación hasta 30 días', grey: icon(16), color: colorIcon(5, '-16'), ring: 5 },
+  { label: 'Sistema integral de videovigilancia', grey: icon(8), color: colorIcon(5), ring: 5 },
+]
+
+const pills = [
+  { label: 'Cobertura perimetral', ring: 3 },
+  { label: 'Mayor nivel de prevención', ring: 3 },
+  { label: 'Monitor', ring: 4 },
+  { label: 'Supervisión visual', ring: 4 },
+  { label: 'Acceso remoto', ring: 4 },
+]
+
+const housePoints = [
+  { left: '51.8%', top: '35%', label: 'Protección Interior', direction: 'right' },
+  { left: '39.8%', top: '64%', label: 'Interior con Verificación', direction: 'left' },
+  { left: '51.1%', top: '86%', label: 'Protección Perimetral', direction: 'right' },
+  { left: '67%', top: '71%', label: 'Control Visual', direction: 'left' },
+  { left: '75.5%', top: '23%', label: 'Control Total', direction: 'left' },
+]
+
+const products = [
   {
-    id: 1,
-    title: 'Proteccion Interior',
-    summary: 'Seguridad para el interior del hogar.',
-    plan: planInterior,
-    bullets: ['Sensor magnetico', 'Sirena interna', 'Sensor de movimiento', 'Control remoto', 'Monitoreo profesional'],
-    icons: [magneticIcon, sirenIcon, motionIcon, remoteIcon, monitoringIcon],
-    point: { left: '39%', top: '54%' },
+    image: asset('PRODUCTOS/sensor-magnetico.png'),
+    title: <>Sensor<br />magnético</>,
+    text: <>Detecta apertura de<br />puertas/ventanas</>,
   },
   {
-    id: 2,
-    title: 'Interior con Verificacion',
-    summary: 'Validacion visual ante eventos.',
-    plan: planInterior,
-    bullets: ['Sensor fotodetector', 'Verificacion por imagen', 'Gestion desde la app'],
-    icons: [photoIcon, verificationIcon, appIcon],
-    point: { left: '48%', top: '43%' },
+    image: asset('PRODUCTOS/sensor-movimiento.png'),
+    title: <>Sensor de<br />movimiento</>,
+    text: <>Detecta presencia<br />o circulación.</>,
   },
   {
-    id: 3,
-    title: 'Proteccion Perimetral',
-    summary: 'Deteccion anticipada antes del ingreso.',
-    plan: planTotal,
-    bullets: ['Sensores exteriores tipo cortina', 'Cobertura perimetral', 'Mayor nivel de prevencion'],
-    icons: [exteriorIcon, monitoringIcon, remoteIcon],
-    point: { left: '27%', top: '63%' },
-  },
-  {
-    id: 4,
-    title: 'Control Visual',
-    summary: 'Visualizacion en tiempo real del entorno.',
-    plan: planTotal,
-    bullets: ['Camaras exteriores', 'Supervision visual', 'Acceso remoto'],
-    icons: [cameraIcon, appIcon, monitoringIcon],
-    point: { left: '63%', top: '39%' },
-  },
-  {
-    id: 5,
-    title: 'Control Total',
-    summary: 'Maximo nivel de cobertura y registro.',
-    plan: planTotal,
-    bullets: ['NVR grabador', 'Grabacion hasta 30 dias', 'Sistema integral de videovigilancia'],
-    icons: [nvrIcon, recordingIcon, videoIcon],
-    point: { left: '76%', top: '58%' },
+    image: asset('PRODUCTOS/sensor-fotodetector.png'),
+    title: <>Sensor<br />fotodetector</>,
+    text: <>Además de detectar, permite<br />validación visual por imagen.</>,
   },
 ]
 
-function Logo({ light = false, compact = false }) {
+function Brand({ light = false }) {
+  return <img className={`brand ${light ? 'brandLight' : ''}`} src={logo} alt="Proactiva" />
+}
+
+function LegendItem({ item, activeRing }) {
+  const active = activeRing !== null && item.ring <= activeRing
   return (
-    <div className={`logo ${light ? 'logoLight' : ''} ${compact ? 'logoCompact' : ''}`}>
-      <img src={logoWhite} alt="Proactiva" />
-      {!light && <span>INTELIGENCIA PREVENTIVA</span>}
+    <div className={`legendItem ${active ? 'isActive' : ''}`}>
+      <img src={active ? item.color : item.grey} alt="" />
+      <span>{item.label}</span>
     </div>
   )
 }
 
-function RingButton({ ring, active, onClick }) {
-  return (
-    <button
-      className={`ringButton ${active ? 'isActive' : ''}`}
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      aria-label={`Ver anillo ${ring.id}: ${ring.title}`}
-    >
-      <img src={active ? ringActiveIcons[ring.id - 1] : ringIcons[ring.id - 1]} alt="" />
-    </button>
-  )
-}
-
-function Feature({ icon, label }) {
-  return (
-    <li className="feature">
-      <img src={icon} alt="" />
-      <span>{label}</span>
-    </li>
-  )
-}
-
 function App() {
-  const [activeRing, setActiveRing] = useState(1)
-  const selected = useMemo(() => rings.find((ring) => ring.id === activeRing) ?? rings[0], [activeRing])
-  const sensorCards = [
-    {
-      image: pdfAsset('p1_img5.png'),
-      title: 'SENSOR FOTODETECTOR',
-      text: 'Ademas de detectar, permite validacion visual por imagen.',
-    },
-    {
-      image: pdfAsset('p1_img3.png'),
-      title: 'SENSOR MAGNETICO',
-      text: 'Detecta apertura de puertas/ventanas.',
-    },
-    {
-      image: pdfAsset('p1_img6.png'),
-      title: 'SENSOR DE MOVIMIENTO',
-      text: 'Detecta presencia o circulacion.',
-    },
-  ]
+  const [activeRing, setActiveRing] = useState(null)
+  const highlightedHouse = activeRing !== null
 
   return (
     <main>
-      <header className="siteHeader">
-        <a className="headerBrand" href="#inicio" aria-label="Ir al inicio">
-          <Logo compact />
-        </a>
-        <nav className="headerNav" aria-label="Navegacion principal">
-          <a href="#inicio">Inicio</a>
-          <a href="#anillos">Anillos</a>
-          <a href="#servicio">Servicio</a>
-          <a href="#sensores">Sensores</a>
-          <a href="#contacto">Contacto</a>
-        </nav>
+      <header className="topbar">
+        <Brand />
       </header>
 
-      {/* <section id="inicio" className="introLogo">
-        <Logo />
-      </section> */}
-
-      <section
-        className="hero"
-        style={{ '--hero-bg': `url("${heroBg}")`, '--hero-mobile-bg': `url("${heroMobileBg}")` }}
-      >
-        <div className="heroContent">
-          <h1>ENTENDEMOS<br />PORQUE SENTIMOS</h1>
-          <p>Somos profesionales que entienden que detras de una alerta hay un hogar, una familia y un miedo real.</p>
-          <Logo light compact />
+      <section className="hero">
+        <div className="heroSignal" aria-hidden="true"><span>p</span></div>
+        <div className="heroCopy">
+          <h1>Entendemos<br />porque<br />sentimos</h1>
+          <p>Somos profesionales que entienden que detrás de una alerta hay un hogar, una familia y un miedo real.</p>
+          <Brand light />
         </div>
       </section>
 
-      <section id="anillos" className="rings">
-        <div className="w-full ringsIntro text-center">
-          <p className="know">Conocé</p>
-          <h2 className='text-center '>NUESTROS ANILLOS</h2>
-          <h2 className='text-center  w-full '><strong>DE SEGURIDAD</strong></h2>
-          {/* <div className="pill">VIGILANCIA <span /> CONTROL <span /> TECNOLOGIA</div> */}
-          <img className="arrowCue animate-bounce mt-12! m-auto" src={arrowImage} alt="" />
-        </div>
+      <section className="houseSection" aria-label="Anillos de seguridad">
+        <picture>
+          <source media="(max-width: 640px)" srcSet={highlightedHouse ? houseActiveMobile : houseMobile} />
+          <img src={highlightedHouse ? houseActiveDesktop : houseDesktop} alt="Casa protegida por cinco anillos de seguridad" />
+        </picture>
+        {housePoints.map((point, index) => (
+          <button
+            className={`ringPoint ringPoint--${point.direction} ${activeRing === index + 1 ? 'isActive' : ''}`}
+            style={{ left: point.left, top: point.top }}
+            type="button"
+            key={index}
+            onClick={() => setActiveRing(index + 1)}
+            aria-pressed={activeRing === index + 1}
+            aria-label={`Anillo ${index + 1}: ${point.label}`}
+          >
+            <span className="ringLabel" aria-hidden="true">{point.label}</span>
+            <span className="ringVisual" aria-hidden="true">
+              <img src={emptyCircle} alt="" />
+              <span className="ringNumber">{index + 1}</span>
+            </span>
+          </button>
+        ))}
+      </section>
 
-        <div className="houseStage">
-          <picture>
-            <source srcSet={houseMobile} media="(max-width: 640px)" />
-            <img className="houseImage" src={houseDesktop} alt="Casa protegida por anillos de seguridad" />
-          </picture>
-          <div className="scanArc scanArcOne" aria-hidden="true" />
-          <div className="scanArc scanArcTwo" aria-hidden="true" />
-          {rings.map((ring) => (
-            <button
-              key={ring.id}
-              className={`housePoint point${ring.id} ${activeRing === ring.id ? 'isActive' : ''}`}
-              style={{ left: ring.point.left, top: ring.point.top }}
-              type="button"
-              onClick={() => setActiveRing(ring.id)}
-              aria-label={`Cambiar al anillo ${ring.id}: ${ring.title}`}
-            >
-              {ring.id}
-            </button>
-          ))}
-        </div>
-
-        <div className="ringNav" aria-label="Anillos de seguridad">
-          {rings.map((ring) => (
-            <RingButton
-              key={ring.id}
-              ring={ring}
-              active={activeRing === ring.id}
-              onClick={() => setActiveRing(ring.id)}
-            />
-          ))}
-        </div>
-
-        <div className="coveragePanel">
-          <div className="coverageCopy">
-            <span className="ringEyebrow">Anillo {selected.id}</span>
-            <h3>{selected.title}</h3>
-            <p>{selected.summary}</p>
-            <ul className="featureGrid">
-              {selected.bullets.map((label, index) => (
-                <Feature key={label} icon={selected.icons[index]} label={label} />
+      <section className="legend" aria-label="Elementos de protección">
+        <div className="legendGrid">
+          <div className="legendColumn">
+            {protections.slice(0, 4).map((item) => <LegendItem key={item.label} item={item} activeRing={activeRing} />)}
+          </div>
+          <div className="legendColumn">
+            {protections.slice(4, 8).map((item) => <LegendItem key={item.label} item={item} activeRing={activeRing} />)}
+          </div>
+          <div className="legendColumn">
+            {[protections[9], protections[8], protections[10], protections[11]].map((item) => (
+              <LegendItem key={item.label} item={item} activeRing={activeRing} />
+            ))}
+          </div>
+          <div className="legendColumn legendLast">
+            <LegendItem item={protections[12]} activeRing={activeRing} />
+            <div className="pillList">
+              {pills.map((item) => (
+                <div
+                  className={`textPill ${activeRing !== null && item.ring <= activeRing ? 'isActive' : ''}`}
+                  key={item.label}
+                >
+                  {item.label}
+                </div>
               ))}
-            </ul>
-          </div>
-          <div className="planFrame" key={selected.id}>
-            <img className="planGhost" src={planEmpty} alt="" />
-            <img className="planActive" src={selected.plan} alt={`Plano de cobertura del anillo ${selected.id}`} />
+            </div>
           </div>
         </div>
+        <p className="legendHint">Seleccioná un anillo para ver su cobertura.</p>
       </section>
 
-      <section id="servicio" className="integral">BRINDAMOS UN<br />SERVICIO INTEGRAL</section>
+      <section className="serviceBand">Brindamos un servicio integral</section>
 
-      <section id="sensores" className="alarms">
-        <Logo compact />
-        <img className="kitImage" src={pdfAsset('p1_img2.png')} alt="Kit de alarmas Proactiva" />
-        <div className="alarmHeading">
-          <h2>ALARMAS<br /><strong>MONITOREADAS</strong></h2>
-          <p>Sistema conectado a monitoreo profesional para detectar eventos y dar aviso inmediato ante intrusiones o situaciones de riesgo.</p>
+      <section className="services">
+        <div className="alarmIntro">
+          <img className="kitImage" src={asset('PRODUCTOS/kit-alarmas.png')} alt="Kit de alarmas monitoreadas" />
+          <h2>Alarmas<br /><span>monitoreadas</span></h2>
+          <p>Sistema conectado a monitoreo profesional.<br />Permite detectar eventos y dar aviso<br />inmediato ante intrusiones o situaciones de riesgo.</p>
         </div>
 
-        <div className="sensorTitle">
-          <span>
-            <img src={magneticIcon} alt="" />
-            <img src={motionIcon} alt="" />
-            <img src={photoIcon} alt="" />
-          </span>
-          <strong>SENSORES INTERIORES</strong>
+        <div className="sensorHeading">
+          <div className="sensorHeadingIcons">
+            <img src={colorIcon(1, '-04')} alt="" />
+            <img src={colorIcon(1, '-10')} alt="" />
+            <img src={colorIcon(1, '-10')} alt="" />
+            {/* {[4, 10, 6].map((number) => <img src={colorIcon(1, '-04')} alt="" key={number} />)} */}
+          </div>
+          <h2>Sensores interiores</h2>
         </div>
-        <p className="sensorIntro">Detectan movimientos o aperturas dentro del hogar o propiedad. Son la primera capa de proteccion interior.</p>
+        <p className="sensorLead">Detectan movimientos o aperturas dentro del hogar o propiedad.<br />Son la primera capa de protección interior.</p>
 
-        <div className="sensorProducts">
-          {sensorCards.map((sensor) => (
-            <article className="sensorProduct" key={sensor.title}>
-              <img src={sensor.image} alt="" />
+        <div className="products">
+          {products.map((product) => (
+            <article className="product" key={product.image}>
+              <img src={product.image} alt="" />
               <div>
-                <h3>{sensor.title}</h3>
-                <p>{sensor.text}</p>
+                <h3>{product.title}</h3>
+                <p>{product.text}</p>
               </div>
             </article>
           ))}
         </div>
 
-        <div className="perimeterBlock">
-          <h3>SENSORES<br />PERIMETRALES</h3>
-          <img src={pdfAsset('p1_img1.png')} alt="Sensor exterior perimetral" />
-          <p>Sensores exteriores tipo cortina. Permiten detectar movimientos antes del ingreso a la propiedad, generando una proteccion anticipada.</p>
-        </div>
-
-        <div className="elementStrip">
-          {[magneticIcon, sirenIcon, motionIcon, remoteIcon, monitoringIcon, photoIcon, verificationIcon, appIcon, exteriorIcon, cameraIcon, nvrIcon, recordingIcon, videoIcon].map((icon, index) => (
-            <span key={icon} className="elementIcon" style={{ '--delay': `${index * 70}ms` }}>
-              <img src={icon} alt="" />
-            </span>
-          ))}
+        <div className="perimeter">
+          <h2>Sensores<br />perimetrales</h2>
+          <img src={asset('PRODUCTOS/sensor-movimiento.png')} alt="Sensor exterior perimetral" />
+          {/* <img src={asset('PRODUCTOS/sensor-perimetral.png')} alt="Sensor exterior perimetral" /> */}
+          <p>Sensores exteriores tipo cortina.<br />Permiten detectar movimientos<br />antes del ingreso a la propiedad,<br />generando una protección anticipada.</p>
         </div>
       </section>
 
-      <footer id="contacto" className="siteFooter">
-        <div className="footerColumn footerBrand">
-          <Logo compact />
-          <p>Seguridad monitoreada, videovigilancia y respuesta preventiva para hogares y comercios.</p>
-        </div>
-        <div className="footerColumn">
-          <h3>Contacto</h3>
-          <p>Av. Siempre Viva 1234</p>
-          <p>Buenos Aires, Argentina</p>
-          <p>contacto@proactiva.test</p>
-        </div>
-        <div className="footerColumn">
-          <h3>Atencion</h3>
-          <p>Lunes a viernes de 9 a 18 hs</p>
-          <p>Guardia de monitoreo 24/7</p>
-          <p>Informacion de prueba</p>
-        </div>
-      </footer>
+      <footer />
     </main>
   )
 }
