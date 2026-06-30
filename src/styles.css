@@ -138,6 +138,26 @@ main {
   width: min(440px, 43vw);
   position: relative;
   z-index: 1;
+  animation: heroContentIn .9s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@keyframes heroContentIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroCopy,
+  .ringsCalloutArrow {
+    animation: none;
+  }
 }
 
 .hero h1 {
@@ -732,9 +752,9 @@ footer {
 
   .hero {
     min-height: 520px;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    padding: 65px 28px 36px;
+    padding: 0;
     background-image: url('../assets2/BANNER 1 CELU.png');
     text-align: center;
   }
@@ -752,20 +772,33 @@ footer {
   }
 
   .heroCopy {
-    width: 100%;
-    margin-left: 0;
+    position: absolute;
+    inset: 0;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
   .hero h1 {
+    width: 100%;
     max-width: 100%;
+    margin-inline: auto;
     font-size: clamp(33px, 9.4vw, 40px);
     letter-spacing: .055em;
+    text-align: center;
   }
 
   .hero p {
+    width: 100%;
     max-width: 310px;
     margin-inline: auto;
     font-size: 16px;
+    text-align: center;
   }
 
   .hero .brand {
@@ -814,12 +847,6 @@ footer {
 
   .selectedRing {
     display: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .ringsCalloutArrow {
-      animation: none;
-    }
   }
 
   .legendColumn {
@@ -942,37 +969,47 @@ footer {
   }
 
   .perimeter {
-    min-height: 320px;
-    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    min-height: 0;
+    margin-top: 8px;
+    grid-template-columns: 42% 58%;
+    grid-template-rows: auto auto;
     grid-template-areas:
-      'title image'
-      'copy copy';
+      'image title'
+      'image copy';
+    align-items: stretch;
   }
 
   .perimeter h2 {
     grid-area: title;
-    font-size: 29px;
+    align-self: end;
+    margin: 0;
+    padding: 0 0 4px 10px;
+    border-left: 2px solid #2785bc;
+    font-size: 21px;
+    line-height: .86;
   }
 
   .perimeter img {
     grid-area: image;
-    height: 210px;
+    align-self: center;
+    height: 150px;
   }
 
   .perimeter p {
     grid-area: copy;
-    justify-self: center;
-    width: 82%;
-    padding: 8px;
-    text-align: center;
-    font-size: 10px;
+    align-self: start;
+    width: 100%;
+    padding: 0 0 0 10px;
+    border-left: 2px solid #2785bc;
+    text-align: left;
+    font-size: 12px;
+    line-height: 1;
   }
 
+  .perimeter::before,
   .perimeter::after {
-    left: 8%;
-    right: 8%;
-    bottom: 8%;
-    height: 90px;
+    display: none;
   }
 }
 
