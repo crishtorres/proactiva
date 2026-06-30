@@ -733,8 +733,10 @@ footer {
   .hero {
     min-height: 520px;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: center;
     padding: 65px 28px 36px;
+    background-image: url('../assets2/BANNER 1 CELU.png');
+    text-align: center;
   }
 
   .hero::before {
@@ -762,7 +764,12 @@ footer {
 
   .hero p {
     max-width: 310px;
+    margin-inline: auto;
     font-size: 16px;
+  }
+
+  .hero .brand {
+    margin-inline: auto;
   }
 
   .houseSection {
@@ -801,20 +808,12 @@ footer {
   }
 
   .legendGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px 12px;
   }
 
   .selectedRing {
-    grid-column: 1 / -1;
-  }
-
-  .selectedRingVisual {
-    width: 105px;
-  }
-
-  .selectedRingVisual span {
-    font-size: 50px;
+    display: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -824,7 +823,7 @@ footer {
   }
 
   .legendColumn {
-    min-width: 0;
+    display: contents;
   }
 
   .legendItem span {
@@ -833,19 +832,35 @@ footer {
   }
 
   .legendItem {
-    grid-template-columns: 34px minmax(0, 1fr);
-    gap: 7px;
-    min-height: 39px;
-    font-size: 9px;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 8px;
+    min-height: 44px;
+    font-size: 11px;
   }
 
   .legendItem img {
-    width: 34px;
-    height: 34px;
+    width: 40px;
+    height: 40px;
   }
 
   .legendLast .legendItem {
-    grid-template-columns: 34px minmax(0, 1fr);
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+
+  .pillList {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 8px;
+    padding-left: 0;
+  }
+
+  .textPill {
+    width: 100%;
+    min-height: 28px;
+    justify-content: center;
+    padding: 5px 7px;
+    font-size: 10px;
+    text-align: center;
   }
 
   .serviceBand {
