@@ -71,13 +71,14 @@ main {
   justify-content: flex-end;
   padding: 54px clamp(68px, 10.8vw, 168px);
   color: #fff;
-  background:
-    radial-gradient(circle at 51% 53%, rgba(2, 157, 224, .72), transparent 18%),
-    linear-gradient(90deg, #082d51 0%, #073259 48%, #052847 100%);
+  background-image: url('../assets2/Fondo Banner.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   isolation: isolate;
 }
 
-.hero::before {
+/* .hero::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -89,10 +90,10 @@ main {
   background-size: 124px 72px;
   background-position: 78% 0;
   mask-image: linear-gradient(90deg, transparent 42%, #000 76%, transparent);
-}
+} */
 
 .heroSignal {
-  position: absolute;
+  /* position: absolute;
   left: clamp(-82px, -5vw, -24px);
   top: 50%;
   width: clamp(390px, 41vw, 630px);
@@ -105,16 +106,16 @@ main {
   box-shadow:
     0 0 0 10px rgba(37, 173, 215, .09),
     inset 0 0 0 40px rgba(37, 173, 215, .04),
-    inset 0 0 0 106px rgba(0, 15, 39, .18);
+    inset 0 0 0 106px rgba(0, 15, 39, .18); */
 }
 
-.heroSignal::before,
+/* .heroSignal::before,
 .heroSignal::after {
   content: '';
   position: absolute;
   border-radius: 50%;
   border: 26px dotted rgba(83, 181, 218, .09);
-}
+} */
 
 .heroSignal::before {
   inset: -44px;
@@ -177,6 +178,59 @@ main {
 
 .houseSection picture img {
   object-fit: cover;
+}
+
+.ringsCallout {
+  position: absolute;
+  left: 5.5%;
+  top: 50%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.7vw, 26px);
+  transform: translateY(-50%);
+  color: #fff;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .55));
+}
+
+.ringsCalloutText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: .9;
+  text-align: center;
+}
+
+.ringsCalloutIntro {
+  color: #3cb8f0;
+  font-size: clamp(23px, 2.2vw, 34px);
+  line-height: 1;
+}
+
+.ringsCalloutLight {
+  margin-top: 5px;
+  font-size: clamp(16px, 1.55vw, 24px);
+  font-weight: 400;
+  line-height: .9;
+  text-transform: uppercase;
+}
+
+.ringsCalloutText strong {
+  font-size: clamp(16px, 1.55vw, 24px);
+  font-weight: 700;
+  line-height: .9;
+  text-transform: uppercase;
+}
+
+.ringsCalloutArrow {
+  width: clamp(54px, 5vw, 78px);
+  height: auto;
+  animation: arrowDrift 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes arrowDrift {
+  from { transform: translateX(-5px); }
+  to { transform: translateX(5px); }
 }
 
 .ringPoint {
@@ -308,10 +362,53 @@ main {
 
 .legendGrid {
   display: grid;
-  grid-template-columns: .9fr 1fr 1fr 1.45fr;
-  gap: clamp(24px, 3.8vw, 60px);
-  max-width: 1050px;
+  grid-template-columns: 140px .9fr 1fr 1fr 1.45fr;
+  gap: clamp(20px, 2.8vw, 44px);
+  max-width: 1250px;
   margin: 0 auto;
+}
+
+.selectedRing {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: start;
+  gap: 8px;
+}
+
+.selectedRing.isEmpty {
+  visibility: hidden;
+}
+
+.selectedRingTitle {
+  color: var(--blue);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.selectedRingVisual {
+  position: relative;
+  width: 120px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.selectedRingVisual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.selectedRingVisual span {
+  position: relative;
+  color: #fff;
+  font-size: 58px;
+  line-height: 1;
 }
 
 .legendColumn {
@@ -672,6 +769,29 @@ footer {
     aspect-ratio: 815 / 347;
   }
 
+  .ringsCallout {
+    left: 4%;
+    top: 24%;
+    gap: 8px;
+  }
+
+  .ringsCalloutIntro {
+    font-size: 16px;
+  }
+
+  .ringsCalloutLight,
+  .ringsCalloutText strong {
+    font-size: 10px;
+  }
+
+  .ringsCalloutLight {
+    margin-top: 2px;
+  }
+
+  .ringsCalloutArrow {
+    width: 40px;
+  }
+
   .ringPoint {
     width: 38px;
   }
@@ -683,6 +803,24 @@ footer {
   .legendGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px 16px;
+  }
+
+  .selectedRing {
+    grid-column: 1 / -1;
+  }
+
+  .selectedRingVisual {
+    width: 105px;
+  }
+
+  .selectedRingVisual span {
+    font-size: 50px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ringsCalloutArrow {
+      animation: none;
+    }
   }
 
   .legendColumn {

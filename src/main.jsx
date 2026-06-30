@@ -96,7 +96,7 @@ function App() {
       </header>
 
       <section className="hero">
-        <div className="heroSignal" aria-hidden="true"><span>p</span></div>
+        <div className="heroSignal" aria-hidden="true"></div>
         <div className="heroCopy">
           <h1>Entendemos<br />porque<br />sentimos</h1>
           <p>Somos profesionales que entienden que detrás de una alerta hay un hogar, una familia y un miedo real.</p>
@@ -109,6 +109,14 @@ function App() {
           <source media="(max-width: 640px)" srcSet={highlightedHouse ? houseActiveMobile : houseMobile} />
           <img src={highlightedHouse ? houseActiveDesktop : houseDesktop} alt="Casa protegida por cinco anillos de seguridad" />
         </picture>
+        <div className="ringsCallout" aria-hidden="true">
+          <div className="ringsCalloutText">
+            <span className="ringsCalloutIntro">Conocé</span>
+            <span className="ringsCalloutLight">Nuestros anillos</span>
+            <strong>De seguridad</strong>
+          </div>
+          <img className="ringsCalloutArrow" src={asset('Flechita.svg')} alt="" />
+        </div>
         {housePoints.map((point, index) => (
           <button
             className={`ringPoint ringPoint--${point.direction} ${activeRing === index + 1 ? 'isActive' : ''}`}
@@ -130,6 +138,17 @@ function App() {
 
       <section className="legend" aria-label="Elementos de protección">
         <div className="legendGrid">
+          <div className={`selectedRing ${activeRing === null ? 'isEmpty' : ''}`} aria-live="polite">
+            {activeRing !== null && (
+              <>
+              <span className="selectedRingTitle">Anillo</span>
+              <span className="selectedRingVisual" aria-label={`Anillo ${activeRing}`}>
+                <img src={emptyCircle} alt="" />
+                <span>{activeRing}</span>
+              </span>
+              </>
+            )}
+          </div>
           <div className="legendColumn">
             {protections.slice(0, 4).map((item) => <LegendItem key={item.label} item={item} activeRing={activeRing} />)}
           </div>
